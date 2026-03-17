@@ -1,7 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
-  serverExternalPackages: ['firebase-admin'],
+  experimental: {
+    serverComponentsExternalPackages: ['firebase-admin'],
+  },
   images: {
     remotePatterns: [{ hostname: 'firebasestorage.googleapis.com' }],
   },

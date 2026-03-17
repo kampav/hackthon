@@ -3,30 +3,58 @@
 @tailwind utilities;
 
 :root {
-  --bg: #0f0f1a;
-  --text-1: #f1f5f9;
-  --text-2: #94a3b8;
-  --glass: rgba(255,255,255,0.06);
-  --glass-border: rgba(255,255,255,0.12);
+  /* Lloyds Bank inspired palette */
+  --lloyds-green:      #006a4d;
+  --lloyds-green-dark: #004f3a;
+  --lloyds-green-mid:  #00856b;
+  --lloyds-black:      #1a1a1a;
+  --lloyds-white:      #ffffff;
+  --lloyds-grey:       #f4f4f4;
+  --lloyds-grey-mid:   #e0e0e0;
+  --lloyds-text:       #222222;
+  --lloyds-text-2:     #555555;
+  --accent-teal:       #00b09b;
+  --accent-gold:       #c8963e;
+
+  --glass:        rgba(255,255,255,0.08);
+  --glass-border: rgba(255,255,255,0.15);
 }
 
+* { box-sizing: border-box; }
+
 body {
-  background: var(--bg);
-  color: var(--text-1);
-  font-family: system-ui, sans-serif;
+  background: var(--lloyds-black);
+  color: var(--lloyds-white);
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .glass {
   background: var(--glass);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 1rem;
 }
 
+.btn-primary {
+  @apply px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 active:scale-95;
+  background: var(--lloyds-green);
+}
+.btn-primary:hover { background: var(--lloyds-green-mid); }
+
 .mesh-bg {
   background:
-    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124,58,237,.25) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(6,182,212,.20) 0%, transparent 60%),
-    var(--bg);
+    radial-gradient(ellipse 90% 60% at 10% 5%,  rgba(0,106,77,.35) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 90%,  rgba(0,176,155,.20) 0%, transparent 55%),
+    #0d1410;
   min-height: 100vh;
+}
+
+.card-hover {
+  @apply transition-all duration-200;
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0,176,155,.5);
 }

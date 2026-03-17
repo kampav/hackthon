@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbo",
+    "dev:emulator": "FIRESTORE_EMULATOR_HOST=localhost:8081 next dev --turbo",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

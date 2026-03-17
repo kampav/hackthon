@@ -8,6 +8,7 @@ env:
   PROJECT_ID:      ${{ secrets.GCP_PROJECT_ID }}
   FIREBASE_PROJECT: hackathon-cf959
   REGION:          europe-west2
+  # GCP_PROJECT_ID secret must be set to hackathon-cf959 (same as Firebase project)
   SERVICE:         hackathon
   REGISTRY:        europe-west2-docker.pkg.dev
 

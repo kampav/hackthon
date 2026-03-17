@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file: .env.local
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
+
+  # Firestore emulator — use for local dev without hitting production
+  firestore-emulator:
+    image: gcr.io/google.com/cloudsdktool/google-cloud-cli:emulators
+    command: gcloud emulators firestore start --host-port=0.0.0.0:8081
+    ports:
+      - "8081:8081"

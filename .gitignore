@@ -1,0 +1,27 @@
+# deps
+node_modules/
+.pnp
+.pnp.js
+
+# build
+.next/
+out/
+build/
+dist/
+
+# env — NEVER commit real credentials
+.env
+.env.local
+.env*.local
+.secrets/
+
+# Firebase
+.firebase/
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.vercel
+*.tsbuildinfo
+next-env.d.ts

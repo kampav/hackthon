@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0f0f1a;
+  --text-1: #f1f5f9;
+  --text-2: #94a3b8;
+  --glass: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.12);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-1);
+  font-family: system-ui, sans-serif;
+}
+
+.glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  border-radius: 1rem;
+}
+
+.mesh-bg {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(124,58,237,.25) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(6,182,212,.20) 0%, transparent 60%),
+    var(--bg);
+  min-height: 100vh;
+}

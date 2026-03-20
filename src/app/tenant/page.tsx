@@ -50,7 +50,7 @@ export default function TenantDashboard() {
               <div className="text-xs text-lloyds-text-2 mt-0.5 leading-relaxed">
                 Based on your spending, you may be <strong>£{d.shortfallAmount}</strong> short by rent day. We've spotted 3 ways to help.
               </div>
-              <button className="btn btn-secondary mt-2 py-1.5 px-3 text-sm">See recommendations →</button>
+              <Link href="/tenant/recommendations" className="btn btn-secondary mt-2 py-1.5 px-3 text-sm no-underline inline-block">See recommendations →</Link>
             </div>
           </div>
         )}
@@ -131,7 +131,7 @@ export default function TenantDashboard() {
               <div className="font-semibold text-sm">{r.title}</div>
               {r.saving > 0 && <div className="text-xs text-lloyds-green">Save ~£{r.saving}/month</div>}
             </div>
-            <button className="btn btn-secondary py-1.5 px-3 text-xs">{r.action}</button>
+            <Link href="/tenant/recommendations" className="btn btn-secondary py-1.5 px-3 text-xs no-underline">{r.action}</Link>
           </div>
         ))}
 

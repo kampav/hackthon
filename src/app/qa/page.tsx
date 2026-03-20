@@ -5,29 +5,55 @@ import { useSearchParams } from 'next/navigation'
 
 const SUGGESTED: Record<string, string[]> = {
   tenant: [
+    'Will I be able to cover my rent this month?',
+    'How can I reduce my monthly spending?',
     'Can my landlord evict me without a reason?',
     'How much notice must my landlord give for a rent increase?',
-    'What are my rights if my landlord refuses repairs?',
-    'Can my landlord say no to pets?',
   ],
   landlord: [
+    'Which of my compliance certificates are urgent?',
+    'What do I need to do about the EICR at Maple Street?',
     'How do I increase rent under the new Act?',
-    'What grounds can I use to evict a tenant now?',
-    'What certificates do I legally need to have?',
-    'When do I need to register on the PRS database?',
+    'What should I do about my void property in Sheffield?',
+  ],
+  tradesperson: [
+    'Which jobs should I prioritise this week?',
+    'When will I receive my pending payment?',
+    'What certifications do I need to renew soon?',
+    'How can I grow my earnings this month?',
   ],
 }
 
 interface Message { role: 'user' | 'ai'; text: string }
 
+const PERSONA_META: Record<string, { name: string; back: string; greeting: string; placeholder: string }> = {
+  tenant: {
+    name: 'Sarah (Tenant)',
+    back: '/tenant',
+    greeting: "Hi Sarah! I can see your balance is £843 with rent due in 7 days. Ask me about your finances, rights, or anything about the Renters' Rights Act 2025.",
+    placeholder: 'Ask about your finances or rights...',
+  },
+  landlord: {
+    name: 'David (Landlord)',
+    back: '/landlord',
+    greeting: "Hi David! You have 2 compliance actions needed — an urgent EICR at Maple Street due 28 March. Ask me about your portfolio, compliance, or the Renters' Rights Act 2025.",
+    placeholder: 'Ask about compliance or your portfolio...',
+  },
+  tradesperson: {
+    name: 'Raj (Tradesperson)',
+    back: '/tradesperson',
+    greeting: "Hi Raj! You have 3 matched jobs open and £780 in pending payments. Ask me about your jobs, earnings, or certifications.",
+    placeholder: 'Ask about your jobs or payments...',
+  },
+}
+
 function QAChat() {
   const params = useSearchParams()
-  const role = (params.get('role') ?? 'tenant') as 'tenant' | 'landlord'
-  const backHref = role === 'landlord' ? '/landlord' : '/tenant'
-  const persona = role === 'landlord' ? 'David (Landlord)' : 'Sarah (Tenant)'
+  const role = (params.get('role') ?? 'tenant') as 'tenant' | 'landlord' | 'tradesperson'
+  const meta = PERSONA_META[role] ?? PERSONA_META.tenant
 
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'ai', text: `Hi ${role === 'landlord' ? 'David' : 'Sarah'}! I'm your Rent Smart AI assistant. Ask me anything about the Renters' Rights Act 2025 or your ${role === 'landlord' ? 'compliance obligations' : 'rights as a tenant'}.` },
+    { role: 'ai', text: meta.greeting },
   ])
   const [input, setInput] = useState('')
   const [loading, setLoading] = useState(false)
@@ -59,8 +85,8 @@ function QAChat() {
       {/* Header */}
       <div className="app-header" style={{ paddingBottom: '1rem' }}>
         <div className="flex items-center justify-between">
-          <Link href={backHref} className="text-white/70 text-sm no-underline">← Back</Link>
-          <span className="text-white/70 text-sm">{persona}</span>
+          <Link href={meta.back} className="text-white/70 text-sm no-underline">← Back</Link>
+          <span className="text-white/70 text-sm">{meta.name}</span>
         </div>
         <div className="flex items-center gap-3 mt-3">
           <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center text-xl">🤖</div>
@@ -112,7 +138,7 @@ function QAChat() {
         <div className="flex gap-2">
           <input
             className="flex-1 border border-lloyds-grey-mid rounded-xl px-4 py-3 text-sm outline-none focus:border-lloyds-green"
-            placeholder="Ask about the Renters' Rights Act..."
+            placeholder={meta.placeholder}
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={e => e.key === 'Enter' && ask(input)}

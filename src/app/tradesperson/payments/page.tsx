@@ -8,6 +8,7 @@ const NAV = [
   { label: 'Jobs',     icon: '📋', href: '/tradesperson/jobs' },
   { label: 'Payments', icon: '💳', href: '/tradesperson/payments' },
   { label: 'Profile',  icon: '👤', href: '/tradesperson/profile' },
+  { label: 'AI Help',  icon: '🤖', href: '/qa?role=tradesperson' },
 ]
 
 export default function PaymentsPage() {

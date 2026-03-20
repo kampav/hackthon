@@ -1,49 +1,87 @@
-'use client'
-import { useEffect, useState } from 'react'
+import Link from 'next/link'
 
 export default function Home() {
-  const [api, setApi] = useState<'checking' | 'ok' | 'error'>('checking')
-
-  useEffect(() => {
-    fetch('/api/health')
-      .then(r => r.ok ? setApi('ok') : setApi('error'))
-      .catch(() => setApi('error'))
-  }, [])
-
-  const dot = api === 'ok' ? 'bg-green-400' : api === 'error' ? 'bg-red-400' : 'bg-yellow-400 animate-pulse'
-  const label = api === 'ok' ? 'API Online' : api === 'error' ? 'API Error' : 'Checking…'
-
   return (
-    <main className="mesh-bg min-h-screen flex flex-col items-center justify-center px-6">
-      <div className="glass p-10 max-w-lg w-full text-center space-y-6">
-
-        {/* Logo */}
-        <div className="w-16 h-16 rounded-2xl mx-auto flex items-center justify-center text-3xl"
-             style={{ background: 'var(--lloyds-green)' }}>
-          🐎
+    <div style={{ background: 'var(--green)', minHeight: '100vh' }}>
+      {/* Header */}
+      <div className="px-5 pt-12 pb-8 text-white">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center text-xl">🐎</div>
+          <div>
+            <div className="font-bold text-lg leading-tight">Rent Smart</div>
+            <div className="text-green-100 text-xs">by Lloyds Bank · Hackathon MVP</div>
+          </div>
         </div>
-
-        {/* Heading */}
-        <div>
-          <h1 className="text-4xl font-bold text-white">Hello, World!</h1>
-          <p className="text-white/50 mt-2 text-sm">Hackathon Lab · Engineering Leadership Offsite</p>
-        </div>
-
-        {/* API status */}
-        <div className="flex items-center justify-center gap-2 text-sm">
-          <span className={`w-2.5 h-2.5 rounded-full ${dot}`} />
-          <span className="text-white/70">{label}</span>
-        </div>
-
-        {/* Stack badges */}
-        <div className="flex flex-wrap justify-center gap-2 text-xs">
-          {['Next.js 14', 'Firebase', 'Cloud Run', 'Claude AI', 'GitHub Actions'].map(t => (
-            <span key={t} className="px-3 py-1 rounded-full border border-white/10 text-white/50">{t}</span>
-          ))}
-        </div>
-
-        <p className="text-white/30 text-xs">Paste a PRD → build a full app in one day</p>
+        <h1 className="text-2xl font-bold leading-snug mb-2">
+          AI-powered renting intelligence
+        </h1>
+        <p className="text-green-100 text-sm leading-relaxed">
+          Protecting tenants, supporting landlords, and connecting tradespeople — built for the Renters' Rights Act 2026.
+        </p>
       </div>
-    </main>
+
+      {/* Persona cards */}
+      <div className="bg-lloyds-grey rounded-t-3xl px-4 pt-6 pb-8 min-h-screen">
+        <p className="text-xs font-bold text-lloyds-grey-dark uppercase tracking-wider mb-4 text-center">
+          Hackathon Demo — Select a persona
+        </p>
+
+        <div className="space-y-3">
+          <Link href="/tenant" className="block no-underline">
+            <div className="card flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-lloyds-green-light flex items-center justify-center text-2xl shrink-0">👩</div>
+              <div className="flex-1">
+                <div className="font-bold text-lloyds-text">Sarah Mitchell</div>
+                <div className="text-sm text-lloyds-grey-dark">Tenant · Manchester</div>
+                <div className="flex flex-wrap gap-1 mt-2">
+                  <span className="badge badge-red">⚠ Shortfall risk</span>
+                  <span className="badge badge-blue">AI Q&A</span>
+                </div>
+              </div>
+              <span className="text-lloyds-grey-dark text-lg">›</span>
+            </div>
+          </Link>
+
+          <Link href="/landlord" className="block no-underline">
+            <div className="card flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-lloyds-green-light flex items-center justify-center text-2xl shrink-0">🏠</div>
+              <div className="flex-1">
+                <div className="font-bold text-lloyds-text">David Thompson</div>
+                <div className="text-sm text-lloyds-grey-dark">Landlord · 3 properties</div>
+                <div className="flex flex-wrap gap-1 mt-2">
+                  <span className="badge badge-amber">⏰ EICR expiring</span>
+                  <span className="badge badge-blue">AI Q&A</span>
+                </div>
+              </div>
+              <span className="text-lloyds-grey-dark text-lg">›</span>
+            </div>
+          </Link>
+
+          <Link href="/tradesperson" className="block no-underline">
+            <div className="card flex items-center gap-4">
+              <div className="w-14 h-14 rounded-2xl bg-lloyds-green-light flex items-center justify-center text-2xl shrink-0">⚡</div>
+              <div className="flex-1">
+                <div className="font-bold text-lloyds-text">Raj Patel</div>
+                <div className="text-sm text-lloyds-grey-dark">NICEIC Electrician · London</div>
+                <div className="flex flex-wrap gap-1 mt-2">
+                  <span className="badge badge-green">3 matched jobs</span>
+                  <span className="badge badge-amber">£780 pending</span>
+                </div>
+              </div>
+              <span className="text-lloyds-grey-dark text-lg">›</span>
+            </div>
+          </Link>
+        </div>
+
+        {/* Act notice */}
+        <div className="alert alert-blue mt-4">
+          <span className="text-xl shrink-0">⚖️</span>
+          <div>
+            <div className="font-semibold text-sm" style={{ color: 'var(--blue)' }}>Renters' Rights Act 2025</div>
+            <div className="text-xs text-lloyds-text-2 mt-0.5">Section 21 abolished from 1 May 2026. All demos include real Act guidance.</div>
+          </div>
+        </div>
+      </div>
+    </div>
   )
 }

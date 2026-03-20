@@ -3,58 +3,135 @@
 @tailwind utilities;
 
 :root {
-  /* Lloyds Bank inspired palette */
-  --lloyds-green:      #006a4d;
-  --lloyds-green-dark: #004f3a;
-  --lloyds-green-mid:  #00856b;
-  --lloyds-black:      #1a1a1a;
-  --lloyds-white:      #ffffff;
-  --lloyds-grey:       #f4f4f4;
-  --lloyds-grey-mid:   #e0e0e0;
-  --lloyds-text:       #222222;
-  --lloyds-text-2:     #555555;
-  --accent-teal:       #00b09b;
-  --accent-gold:       #c8963e;
-
-  --glass:        rgba(255,255,255,0.08);
-  --glass-border: rgba(255,255,255,0.15);
+  --green:       #006a4d;
+  --green-dark:  #004f3a;
+  --green-mid:   #00856b;
+  --green-light: #e6f4f0;
+  --bg:          #f5f5f5;
+  --surface:     #ffffff;
+  --text:        #1a1a1a;
+  --text-2:      #555555;
+  --border:      #e0e0e0;
+  --red:         #d0021b;
+  --amber:       #f5a623;
+  --blue:        #1565c0;
 }
 
-* { box-sizing: border-box; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { -webkit-tap-highlight-color: transparent; }
 
 body {
-  background: var(--lloyds-black);
-  color: var(--lloyds-white);
-  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Helvetica Neue', Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
-}
-
-.glass {
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-radius: 1rem;
-}
-
-.btn-primary {
-  @apply px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200 active:scale-95;
-  background: var(--lloyds-green);
-}
-.btn-primary:hover { background: var(--lloyds-green-mid); }
-
-.mesh-bg {
-  background:
-    radial-gradient(ellipse 90% 60% at 10% 5%,  rgba(0,106,77,.35) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 50% at 90% 90%,  rgba(0,176,155,.20) 0%, transparent 55%),
-    #0d1410;
+  max-width: 430px;
+  margin: 0 auto;
   min-height: 100vh;
+  position: relative;
 }
 
-.card-hover {
-  @apply transition-all duration-200;
+/* ── Lloyds App Shell ─────────────────────────────────── */
+.app-header {
+  background: var(--green);
+  color: white;
+  padding: 1rem 1.25rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 40;
 }
-.card-hover:hover {
-  transform: translateY(-2px);
-  border-color: rgba(0,176,155,.5);
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 430px;
+  background: white;
+  border-top: 1px solid var(--border);
+  z-index: 40;
+  padding-bottom: env(safe-area-inset-bottom);
 }
+
+.page-content {
+  padding: 1rem 1rem 5.5rem;
+}
+
+/* ── Cards ───────────────────────────────────────────── */
+.card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1.25rem;
+  margin-bottom: 0.875rem;
+}
+
+.card-sm {
+  background: white;
+  border-radius: 0.875rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1rem;
+}
+
+/* ── Buttons ─────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.15s;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+.btn:active { transform: scale(0.97); }
+.btn-primary { background: var(--green); color: white; }
+.btn-primary:hover { background: var(--green-mid); }
+.btn-secondary { background: var(--green-light); color: var(--green); }
+.btn-outline { background: white; color: var(--green); border: 1.5px solid var(--green); }
+.btn-full { width: 100%; }
+
+/* ── Badges ──────────────────────────────────────────── */
+.badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.625rem; border-radius: 2rem; font-size: 0.75rem; font-weight: 600; }
+.badge-green  { background: #e6f4f0; color: var(--green); }
+.badge-red    { background: #fde8ea; color: var(--red); }
+.badge-amber  { background: #fff3e0; color: #e65100; }
+.badge-blue   { background: #e3f2fd; color: var(--blue); }
+.badge-grey   { background: #f0f0f0; color: #555; }
+
+/* ── Alert banners ───────────────────────────────────── */
+.alert { border-radius: 0.75rem; padding: 1rem; margin-bottom: 0.875rem; display: flex; gap: 0.75rem; }
+.alert-red    { background: #fde8ea; border-left: 4px solid var(--red); }
+.alert-amber  { background: #fff8e1; border-left: 4px solid var(--amber); }
+.alert-green  { background: #e6f4f0; border-left: 4px solid var(--green); }
+.alert-blue   { background: #e3f2fd; border-left: 4px solid var(--blue); }
+
+/* ── Progress bar ────────────────────────────────────── */
+.progress-bar { height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+
+/* ── List items ──────────────────────────────────────── */
+.list-item { display: flex; align-items: center; justify-content: space-between; padding: 0.875rem 0; border-bottom: 1px solid var(--border); }
+.list-item:last-child { border-bottom: none; }
+
+/* ── AI Chat ─────────────────────────────────────────── */
+.chat-bubble-user { background: var(--green); color: white; border-radius: 1rem 1rem 0.25rem 1rem; padding: 0.75rem 1rem; max-width: 80%; margin-left: auto; font-size: 0.9375rem; }
+.chat-bubble-ai   { background: white; color: var(--text); border-radius: 1rem 1rem 1rem 0.25rem; padding: 0.75rem 1rem; max-width: 85%; box-shadow: 0 2px 8px rgba(0,0,0,0.08); font-size: 0.9375rem; line-height: 1.6; }
+
+/* ── Metric tile ─────────────────────────────────────── */
+.metric-tile { background: var(--green-light); border-radius: 0.875rem; padding: 1rem; text-align: center; }
+.metric-tile .value { font-size: 1.5rem; font-weight: 700; color: var(--green); }
+.metric-tile .label { font-size: 0.75rem; color: var(--text-2); margin-top: 0.25rem; }
+
+/* ── Section header ──────────────────────────────────── */
+.section-title { font-size: 0.8125rem; font-weight: 700; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; margin-top: 1.25rem; }
+
+/* ── Bar chart ───────────────────────────────────────── */
+.bar-chart { display: flex; align-items: flex-end; gap: 4px; height: 80px; }
+.bar { flex: 1; border-radius: 4px 4px 0 0; transition: height 0.5s ease; min-width: 8px; }
